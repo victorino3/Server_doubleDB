@@ -5,16 +5,16 @@ This project was already deployed in Heroku, you can acess its API throught the 
 (swaggerAPI)[https://double-victorino2.herokuapp.com/api-docs/]
 
 
-##Deploy plataform
+## Deploy plataform
 1. Heroku
 2. Mongo ATLAS
 
 
-###Tecnologies:
+### Tecnologies:
  * NodeJS
 
 
-####Libraries (only most relevant)
+#### Libraries (only most relevant)
    * Express
    * Bcrypt
    * pm2
