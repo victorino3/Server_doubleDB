@@ -1,0 +1,372 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "version": "1.3.0",
+        "title": "Users",
+        "description": "User management API",
+        "termsOfService": "http://api_url/terms/",
+        "contact": {
+            "name": "Victorino Gomes",
+            "email": "victorinogomes1@hotmail.com",
+            "url": "https://github.com/victorino3"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ],
+    "tags": [
+        {
+            "name": "CRUD operations"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "tags": [
+                    "CRUD operations"
+                ],
+                "description": "Get users",
+                "operationId": "getUsers",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "$ref": "#/components/schemas/get"
+                        },
+                        "required": false
+                    },
+                    {
+                        "name": "skip",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "$ref": "#/components/schemas/get"
+                        },
+                        "required": false
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "$ref": "#/components/schemas/get"
+                        },
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Users were obtained",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/get"
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        },
+        "/users/postgres": {
+            "get": {
+                "tags": [
+                    "CRUD operations"
+                ],
+                "description": "Get users in Postgres database",
+                "operationId": "getUsers",
+                "responses": {
+                    "200": {
+                        "description": "Users were obtained",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/get"
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        },
+        "/coverage": {
+            "get": {
+                "tags": [
+                    "CRUD operations"
+                ],
+                "description": "Coverage",
+                "operationId": "Coverage Details",
+                "responses": {
+                    "200": {
+                        "description": "Coverage Details"
+                       
+                    }
+                }
+                
+            }
+        },
+        "/create": {
+            "post": {
+                "tags": [
+                    "CRUD operations"
+                ],
+                "description": "Create users",
+                "operationId": "createUsers",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/create"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "New users were created"
+                    }
+                }
+            }
+        },
+        "/delete/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of user that we want to delete",
+                    "type": "string"
+                }
+            ],
+            "delete": {
+                "summary": "Delete user with given ID",
+                "tags": [
+                    "CRUD operations"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User is deleted",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/updateOne/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of user that we want to find",
+                    "type": "string"
+                }
+            ],
+            "patch": {
+                "summary": "Update user with give ID",
+                "tags": [
+                    "CRUD operations"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/updateUser"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "User is updated",
+                        "schema": {
+                            "$ref": "#/components/schemas/updateUser"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "CRUD operations"
+                ],
+                "description": "Create users",
+                "operationId": "createUsers",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/login"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "New users were created"
+                    }
+                }
+            }
+        },
+        "/singUp": {
+            "post": {
+                "tags": [
+                    "CRUD operations"
+                ],
+                "description": "Create users",
+                "operationId": "createUsers",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/singUp"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "New users were created"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "required": [
+                    "name",
+                    "age"
+                ],
+                "properties": {
+                    "skip": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer"
+                    },
+                    "id": {
+                        "type": "string"
+                    }
+                }
+            },
+            "create": {
+                "required": [
+                    "name",
+                    "age"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "login": {
+                "required": [
+                    "name",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "singUp": {
+                "required": [
+                    "name",
+                    "password",
+                    "age"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "updateUser": {
+                "required": [
+                    "name",
+                    "age"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "age": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "get": {
+                "required": [
+                    "name",
+                    "skip",
+                    "limit"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "skip": {
+                        "type": "integer"
+                    },
+                    "limit": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "Users": {
+                "type": "array",
+                "$ref": "#/components/schemas/User"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "scheme": "bearer",
+                "type": "http",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
