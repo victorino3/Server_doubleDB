@@ -2,7 +2,7 @@
 
 This project was inspired in free course of *Erick Wendel*  he is amazing _nodeJs_ programmer.
 This project was already deployed in Heroku, you can acess its API throught the following address
-(swaggerAPI)[https://double-victorino2.herokuapp.com/api-docs/]
+[swaggerAPI](https://double-victorino2.herokuapp.com/api-docs/)
 
 
 ## Deploy plataform
