@@ -1,35 +1,37 @@
+require('dotenv').config({ path: 'src/.env.prod' })
+require('dotenv').config({ encoding: 'latin1' })
 const Icrud = require("../strategies/base/Icrudcontext")
-const mongoose = require('mongoose');
+const Mongoose = require('mongoose');
 const { ObjectId } = require('mongodb');
 
 class MongoDb extends Icrud {
     constructor(conection, schema) {
         super();
         this.conection = conection;
+
         this.schema = schema;
-
-
-
     }
-    static async conection() {
-        try {
-            const connection = await mongoose.connect(process.env.MONGOURL,
-                { useNewUrlParser: true })
-            return connection
+    static connect() {
+        Mongoose.connect(process.env.MONGOURL, {
+            useNewUrlParser: true
+        }, function (error) {
+            if (!error) return;
+            console.log('Falha na conexão!', error)
+        })
+        const connection = Mongoose.connection
 
-        } catch (error) {
-            return (error);
-        }
-
-
-
+        connection.once('open', () => console.log('database rodando!!'))
+        return connection;
     }
 
 
 
     async Create(item) {
-        let content = this.schema.create(item)
-        return content;
+        let content = await this.schema.create(item)
+        return {
+            content,
+            data: true,
+        };
 
     };
     async read(id) {
@@ -37,16 +39,24 @@ class MongoDb extends Icrud {
 
 
     }
+
     async readAll(name, skip, limit) {
         try {
             if (name) {
                 const data = await this.schema.find({ name }).skip(skip).limit(limit).exec();
-                let doc = data.length == 0 ? "Nothing found"  : data;
+                let doc = data.length == 0 ? "Nothing found" : data;
 
-                return doc
+                return {
+                    doc,
+                    data: true
+                }
             }
-         
-            return await this.schema.find({}).skip(skip).limit(limit).exec();
+
+            const allUser = await this.schema.find({}).skip(skip).limit(limit).exec();
+            return {
+                allUser,
+                data: true
+            }
 
         }
         catch (e) { return "Something went wrong in ReadAll", e }
@@ -54,19 +64,30 @@ class MongoDb extends Icrud {
 
 
     }
-    async update(id, item) {
-        //console.log(id);
-        return await this.schema.findByIdAndUpdate(ObjectId(id), item)
-        //console.log(vv);
-
-    }
-    async delete(id) {
-        let vv = await this.schema.findByIdAndRemove(ObjectId(id))
-        if (vv != null | vv != undefined) {
-            return true;
+    async update(query, item) {
+        try {
+            await this.schema.findOneAndUpdate(query, item, {
+                new: true
+            })
+            return 1
+        }
+        catch (e) {
+            return "Something went wrong in Update", e
         }
 
+
     }
-};
+    async deleteUser(query) {
+        try {
+            let dellUser = await this.schema.deleteOne({ name : query })
+            return dellUser
+
+
+        }
+        catch (err) { return err; }
+
+    };
+}
+
 
 module.exports = MongoDb;

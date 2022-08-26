@@ -1,28 +1,19 @@
-
 const express = require('express');
-const path = require('path');
 const app = express();
 
 const MongoD = require("../../db/mongodb")
 const schema = require("../../db/Mongodb/schema")
-const connection = MongoD.conection();
+const connection = MongoD.connect()
 const Tokenizations = require("./helpers/Tokenization")
 const Tokenizer = new Tokenizations()
 const verify = require("./helpers/verifyToken")
 const DB = new MongoD(connection, schema)
+
 /*----------------PostgressDb Calling---------------------------*/
 const schemaPostgres = require("../../db/Postgres/tables")
 const conection = require("../../db/Postgres/conn/conn")
 const Postgres = require("../../db/postegres")
 const context = new Postgres(conection, schemaPostgres)
-
-
-/**----------------------------------------------------------- */
-/*
-app.get("/coverage" , async function (req, res){
-    res.sendFile(path.join(__dirname+'../../../coverage/index.html'));
-})*/
-
 
 
 

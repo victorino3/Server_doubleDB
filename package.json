@@ -6,7 +6,7 @@
   "scripts": {
     "preinstall": "npm i -g cross-env",
     "postinstall": "cross-env NODE_ENV=prod npm test",
-    "test": "nyc --reporter=html mocha --timeout 10000 --exit test/Post.test.js",
+    "test": "nyc --reporter=html mocha --timeout 10000 --exit test/*.test.js",
     "start": "pm2-runtime start ecosystem.config.js --env production",
     "test:prod": "cross-env NODE_ENV=prod npm test",
     "prod": "cross-env NODE_ENV=prod node newApi.js"

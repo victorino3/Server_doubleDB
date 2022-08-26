@@ -33,7 +33,7 @@ class Icrud {
     readAll(name,skip,limit){
         throw new NotimplementedException
     }
-    delete(id) {
+    deleteUser(query) {
         throw new NotimplementedException
     };
 };

@@ -26,6 +26,9 @@ class ExecImplematation  extends Icrud {
     async update(id, item) {
         return  await this._table.update(id, item);
     };
+    async deleteUser(query) {
+        return  await this._table.deleteUser(query);
+    };
 
         
 };
