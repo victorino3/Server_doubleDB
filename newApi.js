@@ -16,11 +16,7 @@ const app = express()
 
 app.use(express.json())
 //swagger docs
-/*
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-*/
+
 const swaggerUi = require('swagger-ui-express');
 const openApiDocumentation = require('./openApiDocumentation.json');
 
@@ -36,4 +32,4 @@ app.use(myroutesUser)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiDocumentation));
 //Port number
-app.listen(port, console.log("running on port " + port))
+app.listen(port)
