@@ -1,10 +1,7 @@
-
 const assert = require("assert")
-
 const schemaPostgres = require("../db/Postgres/tables")
 const conection = require("../db/Postgres/conn/conn")
 const Postgres = require("../db/postegres")
-const { before } = require("mocha")
 const context = new Postgres(conection, schemaPostgres)
 
 const Expected = {
@@ -24,6 +21,10 @@ const NewUser = {
 }
 
 describe("Testing Postgres", async () => {
+    it("should True if is connect", async () => {
+        const result = await context.Isconnected()
+        assert.ok(result, true)
+    })
 
     it("Create new User in postgressDb", async function () {
         const result = await context.Create(NewUser)
