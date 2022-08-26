@@ -141,13 +141,13 @@
                 }
             }
         },
-        "/delete/{id}": {
+        "/delete/{name}": {
             "parameters": [
                 {
-                    "name": "id",
+                    "name": "name",
                     "in": "path",
                     "required": true,
-                    "description": "ID of user that we want to delete",
+                    "description": "query of user that we want to delete",
                     "type": "string"
                 }
             ],
@@ -166,13 +166,13 @@
                 }
             }
         },
-        "/updateOne/{id}": {
+        "/updateOne/{name}": {
             "parameters": [
                 {
-                    "name": "id",
+                    "name": "nome",
                     "in": "path",
                     "required": true,
-                    "description": "ID of user that we want to find",
+                    "description": "query of user that we want to find",
                     "type": "string"
                 }
             ],

@@ -66,7 +66,7 @@ class MongoDb extends Icrud {
     }
     async update(query, item) {
         try {
-            await this.schema.findOneAndUpdate(query, item, {
+            await this.schema.findOneAndUpdate({ name: query }, item, {
                 new: true
             })
             return 1
@@ -79,7 +79,7 @@ class MongoDb extends Icrud {
     }
     async deleteUser(query) {
         try {
-            let dellUser = await this.schema.deleteOne({ name : query })
+            let dellUser = await this.schema.deleteOne({ name: query })
             return dellUser
 
 

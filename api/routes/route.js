@@ -117,7 +117,6 @@ app.post('/create',verify, async function (req, res) {
             return res.status(400).json({ message: 'Invalid name or age' })
         }
         let info = await DB.Create({ name, age });
-        console.log(info)
         return res.status(200).json({ info })
     }
     catch (err) {
@@ -126,14 +125,14 @@ app.post('/create',verify, async function (req, res) {
 
 })
 
-app.patch("/updateOne/:id",verify, async function (req, res) {
+app.patch("/updateOne/:name",verify, async function (req, res) {
     try {
-        const id = req.params.id;
+        const query = req.params.name;
         const name = req.body.name;
         const age = req.body.age;
         //const age = req.body.age;
-        if (!id.match(/^[0-9a-fA-F]{24}$/)){
-            res.status(422).json({"message":" Invalid Id!"})
+        if (!query.match(/[a-zA-Z]$/ )){
+            res.status(422).json({"message":" Invalid name to update!"})
             return
         }
         const Regex = /[a-zA-Z]$/ 
@@ -143,7 +142,12 @@ app.patch("/updateOne/:id",verify, async function (req, res) {
         if (result === false || Result === false) {
             return res.status(400).json({ message: 'Invalid name or age ' })
         }
-        let info = await DB.update(id,{name, age});
+        let obj = {
+            name,
+            age
+        }
+
+        let info = await DB.update(query,obj);
         return res.status(200).json({ info })
     }
     catch (err) {
@@ -154,19 +158,19 @@ app.patch("/updateOne/:id",verify, async function (req, res) {
 
 })
 
-app.delete('/delete/:id', verify, async function(req, res) {
+app.delete('/delete/:name', verify, async function(req, res) {
     try {
-        const id = req.params.id;
-        if (!id.match(/^[0-9a-fA-F]{24}$/)){
-            res.status(422).json({"message":" Invalid Id!"})
+        const name = req.params.name;
+        if (!name.match(/[a-zA-Z]$/)){
+            res.status(422).json({"message":" Invalid name!"})
             return
         }
 
-        let info = await DB.delete(id);
+        let info = await DB.deleteUser(name);
         return res.status(200).json({ info })
     }
     catch (err) {
-        console.log("Something went wrong in /updateone", err);
+        console.log("Something went wrong in /deleteOne", err);
     }
 
 });
