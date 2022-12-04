@@ -9,6 +9,7 @@ This project was inspired in free course of *Erick Wendel*  he is amazing _nodeJ
 
 ### Tecnologies:
  * NodeJS
+ * Docker
 
 
 #### Libraries (only most relevant)
