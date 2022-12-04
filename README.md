@@ -1,4 +1,4 @@
-# Server_doubleDB
+# Decentralized server with two asynchronous databases
 
 This project was inspired in free course of *Erick Wendel*  he is amazing _nodeJs_ programmer.
 
